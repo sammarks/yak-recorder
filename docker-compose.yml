@@ -1,0 +1,8 @@
+recorder:
+    build: .
+    env_file: .env
+
+database:
+    image: mysql
+    restart: always
+    env_file: .env

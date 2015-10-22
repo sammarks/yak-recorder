@@ -1,0 +1,22 @@
+{
+  "name": "yak-recorder",
+  "version": "1.0.0",
+  "description": "Given a specific location, records all Yaks and stores them in a database for future analysis.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sammarks/yak-recorder.git"
+  },
+  "author": "Samuel Marks <sam@sammarks.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sammarks/yak-recorder/issues"
+  },
+  "homepage": "https://github.com/sammarks/yak-recorder#readme",
+  "dependencies": {
+    "node-mysql": "^0.4.2"
+  }
+}
