@@ -1,6 +1,9 @@
 recorder:
     build: .
+    restart: always
     env_file: .env
+    links:
+        - 'database:database'
 
 database:
     image: mysql
