@@ -6,7 +6,7 @@ var YakRecorder = {};
 YakRecorder.config = {
 	table: 'yaks',
 	create: "CREATE TABLE `yaks` ( \
-		  `id` varchar(255) NOT NULL DEFAULT '', \
+		  `id` varchar(128) NOT NULL DEFAULT '', \
 		  `message` varchar(255) DEFAULT NULL, \
 		  `latitude` float DEFAULT '0', \
 		  `longitude` float DEFAULT '0', \
@@ -14,14 +14,14 @@ YakRecorder.config = {
 		  `numberOfLikes` int(11) DEFAULT '0', \
 		  `comments` int(11) DEFAULT '0', \
 		  `posterID` varchar(32) DEFAULT '0', \
-		  `locationName` varchar(255) DEFAULT NULL, \
+		  `locationName` varchar(128) DEFAULT NULL, \
 		  `score` float DEFAULT '0', \
 		  `handle` varchar(128) DEFAULT NULL, \
 		  PRIMARY KEY (`id`), \
 		  KEY `posterID` (`posterID`) USING BTREE, \
 		  KEY `locationName` (`locationName`) USING BTREE, \
 		  KEY `coordinates` (`longitude`,`latitude`) USING BTREE \
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4",
 	columns: [
 		'id',
 		'message',
@@ -75,8 +75,9 @@ YakRecorder.record = function (data, connection, success) {
 		var columnName = YakRecorder.config.columns[columnIndex];
 		updateParts.push(columnName + '=VALUES(' + columnName + ')');
 	}
-	connection.query('INSERT INTO yaks (' + joinedColumns + ') VALUES ' + rows.join(',') + 
-		' ON DUPLICATE KEY UPDATE ' + updateParts.join(',') + ';', replacements, function (error, rows, fields) {
+	var query = 'INSERT INTO yaks (' + joinedColumns + ') VALUES ' + rows.join(',') + 
+		' ON DUPLICATE KEY UPDATE ' + updateParts.join(',') + ';';
+	connection.query(query, replacements, function (error, rows, fields) {
 			if (error) { console.log(error); return; }
 			success();
 		});
@@ -125,7 +126,8 @@ YakRecorder.run = function () {
 		host: 'database',
 		user: env['MYSQL_USER'],
 		password: env['MYSQL_PASSWORD'],
-		database: env['MYSQL_DATABASE']
+		database: env['MYSQL_DATABASE'],
+		charset: 'utf8mb4'
 	});
 	YakRecorder.connection.connect();
 
