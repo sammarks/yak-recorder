@@ -144,8 +144,8 @@ YakRecorder.run = function () {
 	});
 
 	var engine = Random.engines.mt19937().autoSeed();
-	var min = 60 * 1000 * 10;
-	var max = 60 * 1000 * 30;
+	var min = 60 * 1000 * 5; // 5 minutes.
+	var max = 60 * 1000 * 10; // 10 minutes.
 	setTimeout(YakRecorder.run, Random.integer(min, max)(engine));
 
 }
