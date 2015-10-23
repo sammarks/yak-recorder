@@ -57,7 +57,8 @@ YakRecorder.record = function (data, connection, success) {
 	// For each of the returned records...
 	for (var index in data) {
 		if (!data.hasOwnProperty(index)) continue;
-		if (!data[index]['id']) continue; // Skip ones that don't have an ID.
+		if (!data[index]['messageID']) continue; // Skip ones that don't have an ID.
+		data[index]['id'] = data[index]['messageID']; // Re-map the message ID.
 		rows.push('(' + 
 			Array.apply(null, Array(YakRecorder.config.columns.length)).map(function(){ return '?' }).join(',') + 
 			')');
